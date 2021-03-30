@@ -17,6 +17,9 @@ function App() {
 
   return (
     <div className="App">
+      <header className="main-header">
+        <h1>StreamCompass</h1>
+      </header>
       <SearchField fetchResults={fetchResults}/>
       <Results searchResult={searchResult}/>
     </div>

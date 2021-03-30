@@ -46,7 +46,7 @@ const SearchField = ({ fetchResults }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <input required onChange={handleChange} value={searchQuery} name="searchQuery"/>
       <select name="country" onChange={handleChange} defaultValue={country}>
         {countryArray.map(obj => <option

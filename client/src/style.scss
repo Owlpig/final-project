@@ -1,8 +1,35 @@
+html {
+  background-color: black;
+  color: white;
+}
+
+.main-header {
+  text-align: center;
+}
+
+.search-form {
+  margin: 10px;
+  text-align: center;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tvshow-card {
+  box-shadow: 2px 2px 10px white;
+  margin: 20px;
+}
+
 img {
   max-width: 400px;
   max-height: 400px;
 }
 
 .tvshow-name {
-  background-color: lightblue
+  background-color: lightblue;
+  color: black
 }
