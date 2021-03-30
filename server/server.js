@@ -3,10 +3,12 @@ require('dotenv').config();
 
 const app = express();
 const port = 5000;
-const searchRouter = require('./routes/search');
+const utellyRouter = require('./routes/utelly');
+const omdbRouter = require('./routes/omdb');
 
 app.use(express.json());
-app.use('/search', searchRouter);
+app.use('/utelly', utellyRouter);
+app.use('/omdb', omdbRouter);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

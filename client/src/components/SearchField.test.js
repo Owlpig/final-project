@@ -8,7 +8,12 @@ describe('The SearchField component', () => {
   
   test('should have a search field', () => {
     render(<SearchField />);
-    expect(screen.getAllByRole('textbox')).toHaveLength(2);
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
+  });
+
+  test('should have a dropdown input field', () => {
+    render(<SearchField />);
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
   
   test('should have a button', () => {

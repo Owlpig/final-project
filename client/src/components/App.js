@@ -6,7 +6,7 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
 
   const fetchResults = (searchQuery, country) => {
-    fetch('/search', {
+    fetch('/utelly', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ searchQuery, country }),

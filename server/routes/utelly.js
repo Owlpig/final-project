@@ -9,14 +9,14 @@ const router = express.Router();
 //     const rawData = await fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${searchQuery}&country=${country}`, {
 //       method: 'GET',
 //       headers: {
-//         'x-rapidapi-key': process.env.SECRET_API_KEY,
+//         'x-rapidapi-key': process.env.UTELLY_API_KEY,
 //         'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
 //       },
 //     });
 //     const parsedData = rawData.json();
 //     return parsedData;
 //   } catch (err) {
-//     console.Error(err);
+//     console.error(err);
 //     return err;
 //   }
 // };
