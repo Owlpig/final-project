@@ -54,7 +54,7 @@ const SearchField = ({ fetchResults }) => {
         value={obj.code}>{obj.name}
         </option>)}
       </select>
-      <button type="submit">Submit</button>
+      <button>Submit</button>
     </form>
   );
 };

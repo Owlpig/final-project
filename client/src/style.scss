@@ -7,6 +7,38 @@ html {
   text-align: center;
 }
 
+.main-heading {
+  color: white;
+  text-decoration: none;
+}
+
+.links {
+  margin: 10px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.login-link, .register-link {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  min-width: 300px;
+}
+
 .search-form {
   margin: 10px;
   text-align: center;
