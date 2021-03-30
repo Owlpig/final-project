@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Details from './Details';
 
 const ResultCard = ({ tvShow }) => {
   const [details, setDetails] = useState({});
@@ -19,7 +20,7 @@ const ResultCard = ({ tvShow }) => {
           } return `${platform.display_name}.`;
         })}
       </p>
-      {details.Genre && <p>{details.Genre}</p>}
+      {details.Genre && <Details details={details}/>}
     </div>
   );
 };
