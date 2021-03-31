@@ -7,6 +7,7 @@ import SearchField from './SearchField';
 import Results from './Results';
 import Login from './Login';
 import Register from './Register';
+import Details from './Details';
 
 function App() {
   const [searchResult, setSearchResult] = useState([]);
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register/>
+          </Route>
+          <Route path="/tvShow-details/:id">
+            <Details/>
           </Route>
           <Route path="/">
             <SearchField fetchResults={fetchResults}/>

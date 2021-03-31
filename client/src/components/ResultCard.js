@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
-import {
-  Route, Link,
-} from 'react-router-dom';
-import Details from './Details';
+import { Link,} from 'react-router-dom';
 
 const ResultCard = ({ tvShow }) => {
   const [details, setDetails] = useState({});
-  useEffect(() => { // useeffect doesnt run on time
+  useEffect(() => {
     fetch(`/omdb/${tvShow.external_ids.imdb.id}`)
       .then(res => res.json())
       .then(data => setDetails(data));
@@ -27,9 +24,6 @@ const ResultCard = ({ tvShow }) => {
         <p>Genre: {details.Genre}</p>
         {details.Ratings && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
       </div>
-      <Route path="/tvShow-details/:id">
-        <Details details={details}/>
-      </Route>
     </Link>
   );
 };
