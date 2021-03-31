@@ -40,7 +40,7 @@ function App() {
             <Register/>
           </Route>
           <Route path="/tvShow-details/:id">
-            <Details/>
+            <Details />
           </Route>
           <Route path="/">
             <SearchField fetchResults={fetchResults}/>

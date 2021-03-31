@@ -5,7 +5,7 @@ const router = express.Router();
 
 const fetchResult = async id => {
   try {
-    const rawData = await fetch(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${id}`);
+    const rawData = await fetch(`http://www.omdbapi.com/?apikey=${process.env.OMDB_API_KEY}&i=${id}&plot=full`);
     const parsedData = rawData.json();
     return parsedData;
   } catch (err) {

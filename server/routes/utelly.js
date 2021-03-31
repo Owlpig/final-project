@@ -1,10 +1,11 @@
 // const fetch = require('node-fetch');
 const express = require('express');
 const mockData = require('../db/mockData');
+const mockIdData = require('../db/mockById');
 
 const router = express.Router();
 
-// const fetchResult = async (searchQuery, country) => {
+// const fetchResultByQuery = async (searchQuery, country) => {
 //   try {
 //     const rawData = await fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=${searchQuery}&country=${country}`, {
 //       method: 'GET',
@@ -21,14 +22,44 @@ const router = express.Router();
 //   }
 // };
 
-const fetchResult = async () => {
+// const fetchResultById = async (id, country) => {
+//   try {
+//     const rawData = await fetch(`https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?source_id=${id}&&source=imdb&country=${country}`, {
+//       method: 'GET',
+//       headers: {
+//         'x-rapidapi-key': process.env.UTELLY_API_KEY,
+//         'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
+//       },
+//     });
+//     const parsedData = rawData.json();
+//     return parsedData;
+//   } catch (err) {
+//     console.error(err);
+//     return err;
+//   }
+// };
+
+const fetchResultByQuery = async () => {
   const parsedData = mockData;
   return parsedData;
 };
 
+const fetchResultById = async () => {
+  const parsedData = mockIdData;
+  return parsedData;
+};
+
+router.post('/:id', async (req, res) => {
+  console.log(req.params.id);
+  const result = await fetchResultById(req.params.id, req.body.country);
+  res
+    .status(200)
+    .send(result);
+});
+
 router.post('/', async (req, res) => {
   console.log(req.body);
-  const result = await fetchResult(req.body.searchQuery, req.body.country);
+  const result = await fetchResultByQuery(req.body.searchQuery, req.body.country);
   res
     .status(200)
     .send(result);

@@ -14,7 +14,7 @@ html {
 
 .links {
   margin: 10px;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
 }
@@ -26,6 +26,7 @@ html {
 }
 
 .main {
+  margin: 0px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,4 +65,38 @@ img {
 .tvshow-name {
   background-color: lightblue;
   color: black
+}
+
+.details-image {
+  margin: 10px;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+}
+
+.details-text {
+  margin: 10px;
+  min-width: 20vw
+}
+
+.details-title {
+  min-width: 50%;
+}
+
+.details-plot {
+  margin-top: 75px;
+  max-width: 40vw
+}
+
+@media screen and (max-width: 750px) {
+  .details-container {
+    flex-direction: column;
+  }
+  .details-plot {
+    margin: 10px;
+    max-width: 80vw
+  }
 }
