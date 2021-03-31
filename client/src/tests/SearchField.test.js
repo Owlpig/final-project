@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import SearchField from './SearchField';
+import SearchField from '../components/SearchField';
 
 describe('The SearchField component', () => {
   test('renders without crashing', () => {

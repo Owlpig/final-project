@@ -25,7 +25,7 @@ const ResultCard = ({ tvShow }) => {
           })}
         </p>
         <p>Genre: {details.Genre}</p>
-        <p>IMDB Rating: {details.Ratings[0].Value}</p>
+        {details.Ratings && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
       </div>
       <Route path="/tvShow-details/:id">
         <Details details={details}/>

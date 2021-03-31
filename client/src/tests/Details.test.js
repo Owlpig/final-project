@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Details from './Details';
+import Details from '../components/Details';
 
 const mockDetails = {
   Genre: 'Action',
@@ -14,7 +14,7 @@ describe('The Details component', () => {
 
   test('genre test', () => {
     render(<Details details={mockDetails} />);
-    expect(screen.getByText('Genre: Action')).toBeInTheDocument();
+    expect(screen.getByText('Number of Seasons: 3')).toBeInTheDocument();
   });
 
 });
