@@ -10,7 +10,7 @@ const mongoDBRouter = require('./routes/mongoDB');
 app.use(express.json());
 app.use('/utelly', utellyRouter);
 app.use('/omdb', omdbRouter);
-app.use('/mongoDB', mongoDBRouter);
+app.use('/mongodb', mongoDBRouter);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

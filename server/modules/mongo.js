@@ -4,7 +4,7 @@ const uri = `mongodb+srv://admin:${process.env.DB_PWORD}@userdata.ftapv.mongodb.
 
 const runDB = async () => {
   const client = await MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-  const db = client.db('userInfo_db');
+  const db = await client.db('userInfo_db');
 
   db.on('close', () => { process.stdout.write('lost connection'); });
   db.on('reconnect', () => { process.stdout.write('reconnected'); });
