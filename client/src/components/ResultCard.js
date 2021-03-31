@@ -6,7 +6,7 @@ import Details from './Details';
 
 const ResultCard = ({ tvShow }) => {
   const [details, setDetails] = useState({});
-  useEffect(() => { //useeffect doesnt run on time
+  useEffect(() => { // useeffect doesnt run on time
     fetch(`/omdb/${tvShow.external_ids.imdb.id}`)
       .then(res => res.json())
       .then(data => setDetails(data));
