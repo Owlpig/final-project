@@ -19,10 +19,15 @@ html {
   right: 0;
 }
 
-.login-link, .register-link {
-  color: white;
+.login-link, .register-link, .protected-link {
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
   text-decoration: none;
-  padding: 5px;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .main {
