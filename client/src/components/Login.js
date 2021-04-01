@@ -1,11 +1,17 @@
-const Login = () => (
-  <form className="login-form">
-    <label htmlFor="username">Username</label>
-    <input id="username" className="username-input"/><br/>
-    <label htmlFor="password">Password</label>
-    <input id="password" type="password" className="password-input"/><br/>
-    <button>Login</button>
-  </form>
-);
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import LoginForm from './LoginForm';
+import { useOktaAuth } from '@okta/okta-react';
+
+const Login = () => {
+  const { authState } = useOktaAuth();
+
+  if (authState.isPending) {
+    return <div>Loading...</div>;
+  }
+  return authState.isAuthenticated ?
+    <Redirect to={{ pathname: '/' }}/> :
+    <LoginForm />;
+};
 
 export default Login;

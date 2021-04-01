@@ -2,10 +2,11 @@ import { useState } from 'react';
 import {
   BrowserRouter, Switch, Route, Link,
 } from 'react-router-dom';
+import AppWithRouterAccess from './AppWithRouterAccess';
 
 import SearchField from './SearchField';
 import Results from './Results';
-import Login from './Login';
+import LoginForm from './LoginForm';
 import Register from './Register';
 import Details from './Details';
 
@@ -34,7 +35,7 @@ function App() {
       <main className="main">
         <Switch>
           <Route path="/login">
-            <Login/>
+            <LoginForm/>
           </Route>
           <Route path="/register">
             <Register/>
