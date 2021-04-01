@@ -8,7 +8,7 @@ import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 import Home from './Home';
 import Login from './Login';
 import Protected from './Protected';
-import Register from './Register';
+import RegistrationForm from './RegistrationForm';
 import Details from './Details';
 
 const AppWithRouterAccess = () => {
@@ -36,7 +36,7 @@ const AppWithRouterAccess = () => {
       <main className="main">
         <Switch>
           <Route path="/register">
-            <Register/>
+            <RegistrationForm/>
           </Route>
           <Route path="/tvShow-details/:id">
             <Details />
