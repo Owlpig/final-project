@@ -1,19 +1,13 @@
 const express = require('express');
-const { runDB } = require('../modules/mongo');
+const User = require('../models/userModel');
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-  const collection = await runDB();
-  const newUser = {
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-  };
-  const user = await collection.insertOne(newUser);
+router.get('/users', async (req, res) => {
+  const users = await User.find();
 
   res
-    .json(user)
+    .send(users)
     .status(201)
     .end();
 });
