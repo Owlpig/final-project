@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
 const RegistrationForm = () => {
-  const { oktaAuth, authService } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
+  // const didMountRef = useRef(false);
+  const [triggerAuthCheck, setTriggerAuthCheck] = useState(false);
   const [sessionToken, setSessionToken] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,50 +12,59 @@ const RegistrationForm = () => {
   const [lastName, setLastName] = useState('');
 
   const checkAuthentication = async () => {
-    const token = await authService.getIdToken();
+    console.log(oktaAuth);
+    const token = await oktaAuth.getIdToken();
     if (token) {
-      setSessionToken({ token });
+      setSessionToken(token);
     }
-  }
+  };
 
   useEffect(() => {
-    checkAuthentication();
+    // if (didMountRef.current) {
+    //   checkAuthentication();
+    // } else {
+    //   didMountRef.current = true;
+    // }
+    if (triggerAuthCheck) {
+      checkAuthentication();
+    }
   });
 
   const handleSubmit = e => {
     e.preventDefault();
 
+    setTriggerAuthCheck(true);
     fetch('api/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, password, firstName, lastName})
+      body: JSON.stringify({
+        email, password, firstName, lastName,
+      }),
     })
-    .then(user => {
-      oktaAuth.signInWithCredentials({ username, password })
-      .then(res => {
-        const token = res.sessionToken;
-        setSessionToken(token);
-        oktaAuth.signInWithRedirect({ sessionToken });
+      .then(() => {
+        oktaAuth.signInWithCredentials({ username: email, password })
+          .then(res => {
+            const token = res.sessionToken;
+            setSessionToken(token);
+            oktaAuth.signInWithRedirect({ sessionToken });
+          });
       })
-    })
-    .catch(err => console.error('Error', err));
-
-  
+      .catch(err => console.error('Error', err));
   };
 
   const handleFirstNameChange = e => {
     setFirstName(e.target.value);
-  }
+  };
 
   const handleLastNameChange = e => {
     setLastName(e.target.value);
-  }
+  };
 
   const handleEmailChange = e => {
-    setUsername(e.target.value);
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = e => {
@@ -64,15 +75,20 @@ const RegistrationForm = () => {
     // Hide form while sessionToken is converted into id/access tokens
     return null;
   }
-  
+
   return (
-  <form onSubmit={handleSubmit} className="register-form">
-    <label value={} htmlFor="email">Email</label>
-    <input id="email" type="email" className="email-input"/><br/>
-    <label htmlFor="password">Password</label>
-    <input id="password" type="password" className="password-input"/><br/>
-    <button>Register</button>
-  </form>
-)};
+    <form onSubmit={handleSubmit} className="register-form">
+      <label htmlFor="firstName">First Name</label>
+      <input onChange={handleFirstNameChange} value={firstName} id="firstName" className="firstName-input"/><br/>
+      <label htmlFor="lastName">Last Name</label>
+      <input onChange={handleLastNameChange} value={lastName} id="lastName" className="lastName-input"/><br/>
+      <label htmlFor="email">Email</label>
+      <input onChange={handleEmailChange} value={email} id="email" type="email" className="email-input"/><br/>
+      <label htmlFor="password">Password</label>
+      <input onChange={handlePasswordChange} value={password }id="password" type="password" className="password-input"/><br/>
+      <button>Register</button>
+    </form>
+  );
+};
 
 export default RegistrationForm;

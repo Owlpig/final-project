@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ResultCard = ({ tvShow }) => {
   const [details, setDetails] = useState({});
   useEffect(() => {
-    fetch(`/omdb/${tvShow.external_ids.imdb.id}`)
+    fetch(`/api/omdb/${tvShow.external_ids.imdb.id}`)
       .then(res => res.json())
       .then(data => setDetails(data));
   }, []);

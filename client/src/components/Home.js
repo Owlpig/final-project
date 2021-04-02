@@ -12,7 +12,7 @@ const Home = () => {
   const [searchResult, setSearchResult] = useState([]);
 
   const fetchResults = (searchQuery, country) => {
-    fetch('/utelly', {
+    fetch('/api/utelly', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ searchQuery, country }),
