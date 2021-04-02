@@ -2,12 +2,12 @@ import React from 'react';
 import {
   Route, useHistory, Switch, Link,
 } from 'react-router-dom';
-import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
+import { Security, LoginCallback } from '@okta/okta-react';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 
 import Home from './Home';
 import Login from './Login';
-import Protected from './Protected';
+import ProfilePage from './ProfilePage';
 import RegistrationForm from './RegistrationForm';
 import Details from './Details';
 
@@ -41,7 +41,7 @@ const AppWithRouterAccess = () => {
           <Route path="/tvShow-details/:id">
             <Details />
           </Route>
-          <SecureRoute path='/protected' component={Protected} />
+          <Route path='/profile' component={ProfilePage} />
           <Route path='/login/callback' component={LoginCallback} />
           <Route path='/login' render={() => <Login />} />
           <Route path='/' exact={true} component={Home} />

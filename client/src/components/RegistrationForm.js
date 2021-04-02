@@ -49,7 +49,7 @@ const RegistrationForm = () => {
           .then(res => {
             const token = res.sessionToken;
             setSessionToken(token);
-            oktaAuth.signInWithRedirect({ sessionToken });
+            oktaAuth.signInWithRedirect({ sessionToken: token });
           });
       })
       .catch(err => console.error('Error', err));

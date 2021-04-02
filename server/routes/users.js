@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
       res.status(400);
       res.send(err);
     });
+  return res.status(201);
 });
 
 module.exports = router;
