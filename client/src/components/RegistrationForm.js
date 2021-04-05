@@ -67,7 +67,7 @@ const RegistrationForm = () => {
   
   return (
   <form onSubmit={handleSubmit} className="register-form">
-    <label value={} htmlFor="email">Email</label>
+    <label value={email} htmlFor="email">Email</label>
     <input id="email" type="email" className="email-input"/><br/>
     <label htmlFor="password">Password</label>
     <input id="password" type="password" className="password-input"/><br/>
