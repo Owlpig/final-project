@@ -1,23 +1,23 @@
 const express = require('express');
 const getAccessToRoute = require('../middlewares/authMiddleware');
-const User = require('../models/userModel');
+const UserFavourites = require('../models/favouritesModel');
 
 const router = express.Router();
 
-router.get('/users', getAccessToRoute, async (req, res) => {
-  const users = await User.find();
+// router.get('/favourites', getAccessToRoute, async (req, res) => {
+//   const allFavourites = await UserFavourites.find();
 
-  res
-    .status(200)
-    .send(users);
-});
+//   res
+//     .status(200)
+//     .send(allFavourites);
+// });
 
-router.get('/users/:id', getAccessToRoute, async (req, res) => {
+router.get('/favourites', getAccessToRoute, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const userFavourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
     res
       .status(200)
-      .send(user);
+      .send(userFavourites.favouriteTvSeries);
   } catch (error) {
     res
       .status(404)
@@ -25,43 +25,35 @@ router.get('/users/:id', getAccessToRoute, async (req, res) => {
   }
 });
 
-router.post('/users', async (req, res) => {
-  const newUser = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
+router.post('/favourites', async (req, res) => {
+  const newFavourites = new UserFavourites({
+    uid: req.jwt.claims.uid,
+    favouriteTvSeries: req.body.favouriteTvSeries,
   });
-  await newUser.save();
+  await newFavourites.save();
   res
     .status(201)
-    .send(newUser);
+    .send(newFavourites);
 });
 
-router.put('/users/:id', getAccessToRoute, async (req, res) => {
+router.put('/favourites', getAccessToRoute, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const favourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
 
-    if (req.body.firstName) {
-      user.firstName = req.body.firstName;
+    if (req.body.addFavourite) {
+      favourites.favouriteTvSeries.push(req.body.addFavourite);
     }
 
-    if (req.body.lastName) {
-      user.lastName = req.body.lastName;
+    if (req.body.deleteFavourite) {
+      const id = req.body.deleteFavourite.imdbId;
+      const updatedArray = favourites.favouriteTvSeries.filter(tvSeries => tvSeries.imdbId !== id);
+      favourites.favouriteTvSeries = updatedArray;
     }
 
-    if (req.body.email) {
-      user.email = req.body.email;
-    }
-
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
-
-    await user.save();
+    await favourites.save();
     res
       .status(200)
-      .send(user);
+      .send(favourites);
   } catch (error) {
     res
       .status(404)
@@ -69,17 +61,17 @@ router.put('/users/:id', getAccessToRoute, async (req, res) => {
   }
 });
 
-router.delete('/users/:id', getAccessToRoute, async (req, res) => {
-  try {
-    await User.deleteOne({ _id: req.params.id });
-    res
-      .status(204)
-      .send();
-  } catch (error) {
-    res
-      .status(404)
-      .send({ error: 'User not found!' });
-  }
-});
+// router.delete('/favourites/:id', getAccessToRoute, async (req, res) => {
+//   try {
+//     await UserFavourites.deleteOne({ uid: req.params.id });
+//     res
+//       .status(204)
+//       .send();
+//   } catch (error) {
+//     res
+//       .status(404)
+//       .send({ error: 'User not found!' });
+//   }
+// });
 
 module.exports = router;
