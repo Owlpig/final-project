@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const oktaClient = require('../lib/oktaClient');
 
-/* Create a new User (register). */
+/* Create a new User (register) through frontend. */
 router.post('/', (req, res) => {
   if (!req.body) return res.sendStatus(400);
   const newUser = {
