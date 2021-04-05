@@ -33,7 +33,6 @@ const SearchField = ({ fetchResults }) => {
   const handleSubmit = e => {
     e.preventDefault();
     fetchResults(searchQuery, country);
-    setCountry('');
     setSearchQuery('');
   };
 

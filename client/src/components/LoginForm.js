@@ -14,9 +14,9 @@ const LoginForm = () => {
       .then(res => {
         const token = res.sessionToken;
         setSessionToken(token);
-        oktaAuth.signInWithRedirect({ sessionToken });
+        oktaAuth.signInWithRedirect({ sessionToken: token });
       })
-      .catch(err => console.error('Error', err));
+      .catch(err => console.error('Error', err)); // handle error
   };
 
   const handleUsernameChange = e => {
@@ -28,7 +28,6 @@ const LoginForm = () => {
   };
 
   if (sessionToken) {
-    // Hide form while sessionToken is converted into id/access tokens
     return null;
   }
 

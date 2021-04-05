@@ -6,11 +6,11 @@ const Details = ({ country }) => {
   const [details, setDetails] = useState({});
   const [platforms, setPlatforms] = useState({});
   useEffect(() => {
-    fetch(`/omdb/${id}`)
+    fetch(`/api/omdb/${id}`)
       .then(res => res.json())
       .then(data => setDetails(data));
 
-    fetch(`/utelly/${id}`, { method: 'POST', body: JSON.stringify({ country }) })
+    fetch(`/api/utelly/${id}`, { method: 'POST', body: JSON.stringify({ country }) })
       .then(res => res.json())
       .then(data => setPlatforms(data.collection.locations));
   }, []);

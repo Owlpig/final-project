@@ -12,7 +12,7 @@ const Home = () => {
   const [searchResult, setSearchResult] = useState([]);
 
   const fetchResults = (searchQuery, country) => {
-    fetch('/utelly', {
+    fetch('/api/utelly', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ searchQuery, country }),
@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div>
       <nav className="links">
-        <Link to='/protected'><button className="protected-link">Protected</button></Link>
+      {authState.isAuthenticated && <Link to='/profile'><button className="protected-link">Profile</button></Link>}
         <Link to="/login">{button}</Link>
         <Link to="/register"><button className="register-link">Register</button></Link>
       </nav>

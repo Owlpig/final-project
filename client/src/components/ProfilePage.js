@@ -1,31 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
+import { Redirect } from 'react-router-dom';
 
 const ProfilePage = () => {
-  const { authService } = useOktaAuth;
-  const [user, setUser] = useState({user: ''})
+  const { oktaAuth, authState } = useOktaAuth();
+  const [user, setUser] = useState();
 
   const getCurrentUser = () => {
-    authService.getUser()
-    .then(user => setUser({ user }))
-  }
+    oktaAuth.getUser()
+      .then(currentUser => setUser(currentUser))
+      .catch(err => console.error(err));
+  };
 
   useEffect(() => {
     getCurrentUser();
   }, []);
-  
+
   if (!user) {
+    if (!authState.isAuthenticated) {
+      return <Redirect to={{ pathname: '/login' }}/>;
+    }
     return null;
-  };
-  return(
+  }
+
+  return (
     <section>
       <h1 className='user-profile'></h1>
       <h1>User Profile</h1>
         <div>
-          <label>Name:</label>
+          <label>Name: </label>
           <span>{user.name}</span>
         </div>
     </section>
-  )
-}
+  );
+};
 export default ProfilePage;
