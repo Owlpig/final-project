@@ -32,9 +32,9 @@ const Home = () => {
   return (
     <div>
       <nav className="links">
-      {authState.isAuthenticated && <Link to='/profile'><button className="protected-link">Profile</button></Link>}
+        {authState.isAuthenticated && <Link to='/profile'><button className="protected-link">Profile</button></Link>}
         <Link to="/login">{button}</Link>
-        <Link to="/register"><button className="register-link">Register</button></Link>
+        {!authState.isAuthenticated && <Link to="/register"><button className="register-link">Register</button></Link>}
       </nav>
       <SearchField fetchResults={fetchResults}/>
       <Results searchResult={searchResult}/>

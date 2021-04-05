@@ -23,6 +23,8 @@ const ProfilePage = () => {
     return null;
   }
 
+  console.log(user);
+
   return (
     <section>
       <h1 className='user-profile'></h1>

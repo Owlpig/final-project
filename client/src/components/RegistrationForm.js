@@ -3,7 +3,6 @@ import { useOktaAuth } from '@okta/okta-react';
 
 const RegistrationForm = () => {
   const { oktaAuth } = useOktaAuth();
-  // const didMountRef = useRef(false);
   const [triggerAuthCheck, setTriggerAuthCheck] = useState(false);
   const [sessionToken, setSessionToken] = useState();
   const [email, setEmail] = useState('');
@@ -19,12 +18,20 @@ const RegistrationForm = () => {
     }
   };
 
+  const addToDB = () => {
+    fetch('api/mongodb/users', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email, password, firstName, lastName,
+      }),
+    });
+  };
+
   useEffect(() => {
-    // if (didMountRef.current) {
-    //   checkAuthentication();
-    // } else {
-    //   didMountRef.current = true;
-    // }
     if (triggerAuthCheck) {
       checkAuthentication();
     }
@@ -52,6 +59,7 @@ const RegistrationForm = () => {
             oktaAuth.signInWithRedirect({ sessionToken: token });
           });
       })
+      .then(() => addToDB())
       .catch(err => console.error('Error', err));
   };
 
