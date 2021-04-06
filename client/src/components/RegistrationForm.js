@@ -9,9 +9,9 @@ const RegistrationForm = () => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [error, setError] = useState('');
 
   const checkAuthentication = async () => {
-    console.log(oktaAuth);
     const token = await oktaAuth.getIdToken();
     if (token) {
       setSessionToken(token);
@@ -60,7 +60,7 @@ const RegistrationForm = () => {
           });
       })
       .then(() => addToDB())
-      .catch(err => console.error('Error', err));
+      .catch(err => setError(err.message));
   };
 
   const handleFirstNameChange = e => {
@@ -82,6 +82,10 @@ const RegistrationForm = () => {
   if (sessionToken) {
     // Hide form while sessionToken is converted into id/access tokens
     return null;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (

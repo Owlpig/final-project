@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 const ProfilePage = () => {
   const { oktaAuth, authState } = useOktaAuth();
   const [user, setUser] = useState();
   const [favourites, setFavourites] = useState();
+  const [error, setError] = useState('');
 
   const getCurrentUser = () => {
     oktaAuth.getUser()
       .then(currentUser => setUser(currentUser))
-      .catch(err => console.error(err));
+      .catch(err => setError(err.message));
   };
 
   const getFavourites = async method => {
@@ -18,17 +19,18 @@ const ProfilePage = () => {
       method,
       headers: { authorization: `Bearer ${authState.accessToken.accessToken}` },
     });
-    if (rawData.status === 401) {
+    if (rawData.status === 404) {
       return false;
     }
-    const parsedData = rawData.json();
+    const parsedData = await rawData.json();
     setFavourites(parsedData);
     return true;
   };
-  // authState.accessToken.accessToken
 
-  useEffect(async () => {
+  useEffect(() => {
     getCurrentUser();
+  }, []);
+  useEffect(async () => {
     try {
       const successfull = authState.accessToken ? await getFavourites('GET') : null;
       if (!successfull) {
@@ -37,29 +39,36 @@ const ProfilePage = () => {
       return true;
     } catch (err) {
       const successfull = authState.accessToken ? await getFavourites('POST') : null;
-      console.log(favourites);
       return successfull;
     }
-  }, []);
+  }, [user]);
 
   if (!user) {
+    if (!authState.accessToken) {
+      return <p>Loading...</p>;
+    }
     if (!authState.isAuthenticated) {
       return <Redirect to={{ pathname: '/login' }}/>;
     }
-    if (!authState.accessToken) {
-      return null;
-    }
-    return null;
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
     <section>
+      <nav className='links'>
+        <Link to='/login'><button className="login-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button></Link>
+      </nav>
       <h1 className='user-profile'></h1>
       <h1>User Profile</h1>
       <div>
-        <label>Name: </label>
-        <span>{user.name}</span>
-        {favourites && favourites.map(series => <p>{series.name}</p>)}
+        <label>Welcome </label>
+        <span>{user.name}!</span>
+        <h3>Your favourite series:</h3>
+        {favourites && favourites.map(series => <p key={series.imdbId}>{series.name}</p>)}
       </div>
     </section>
   );

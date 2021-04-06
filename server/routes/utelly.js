@@ -50,7 +50,6 @@ const fetchResultById = async () => {
 };
 
 router.post('/:id', async (req, res) => {
-  console.log(req.params.id);
   const result = await fetchResultById(req.params.id, req.body.country);
   res
     .status(200)
@@ -58,7 +57,6 @@ router.post('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
   const result = await fetchResultByQuery(req.body.searchQuery, req.body.country);
   res
     .status(200)

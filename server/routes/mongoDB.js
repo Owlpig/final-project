@@ -39,7 +39,6 @@ router.post('/favourites', getAccessToRoute, async (req, res) => {
 router.put('/favourites', getAccessToRoute, async (req, res) => {
   try {
     const favourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
-
     if (req.body.addFavourite) {
       favourites.favouriteTvSeries.push(req.body.addFavourite);
     }

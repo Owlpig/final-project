@@ -6,6 +6,7 @@ const LoginForm = () => {
   const [sessionToken, setSessionToken] = useState();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,7 +17,7 @@ const LoginForm = () => {
         setSessionToken(token);
         oktaAuth.signInWithRedirect({ sessionToken: token });
       })
-      .catch(err => console.error('Error', err)); // handle error
+      .catch(err => setError(err.message));
   };
 
   const handleUsernameChange = e => {
@@ -29,6 +30,10 @@ const LoginForm = () => {
 
   if (sessionToken) {
     return null;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
