@@ -93,7 +93,7 @@ const Details = ({ country }) => {
         </section>
         <p className="details-plot">{details.Plot}</p>
       </div>
-      <Reviews />
+      <Reviews id={id}/>
     </>
   );
 };

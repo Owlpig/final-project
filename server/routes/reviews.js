@@ -4,26 +4,34 @@ const Review = require('../models/reviewModel');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  const allReviews = await Review.find();
-
-  res
-    .status(200)
-    .send(allReviews);
+router.get('/:id', getAccessToRoute, async (req, res) => {
+  try {
+    const userReviews = await Review.find({ uid: req.jwt.claims.uid });
+    res
+      .status(200)
+      .send(userReviews);
+  } catch (error) {
+    res
+      .status(404)
+      .send({ error: 'No reviews found!' });
+  }
 });
 
-// router.get('/:id', getAccessToRoute, async (req, res) => {
-//   try {
-//     const userFavourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
-//     res
-//       .status(200)
-//       .send(userFavourites.favouriteTvSeries);
-//   } catch (error) {
-//     res
-//       .status(404)
-//       .send({ error: 'User not found!' });
-//   }
-// });
+router.get('/', async (req, res) => {
+  if (req.query.imdbId) {
+    const allReviews = await Review.find({ imdbId: req.query.imdbId });
+
+    res
+      .status(200)
+      .send(allReviews);
+  } else {
+    const allReviews = await Review.find();
+
+    res
+      .status(200)
+      .send(allReviews);
+  }
+});
 
 router.post('/', getAccessToRoute, async (req, res) => {
   const newReview = new Review({

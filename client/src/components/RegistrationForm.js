@@ -18,19 +18,6 @@ const RegistrationForm = () => {
     }
   };
 
-  const addToDB = () => {
-    fetch('api/mongodb/users', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email, password, firstName, lastName,
-      }),
-    });
-  };
-
   useEffect(() => {
     if (triggerAuthCheck) {
       checkAuthentication();
@@ -59,7 +46,6 @@ const RegistrationForm = () => {
             oktaAuth.signInWithRedirect({ sessionToken: token });
           });
       })
-      .then(() => addToDB())
       .catch(err => setError(err.message));
   };
 
