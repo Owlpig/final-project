@@ -12,24 +12,33 @@ const ProfilePage = () => {
       .then(currentUser => setUser(currentUser))
       .catch(err => console.error(err));
   };
+
+  const getFavourites = async method => {
+    const rawData = await fetch('/api/mongodb/favourites/', {
+      method,
+      headers: { authorization: `Bearer ${authState.accessToken.accessToken}` },
+    });
+    if (rawData.status === 401) {
+      return false;
+    }
+    const parsedData = rawData.json();
+    setFavourites(parsedData);
+    return true;
+  };
   // authState.accessToken.accessToken
-  useEffect(() => {
+
+  useEffect(async () => {
     getCurrentUser();
     try {
-      fetch('/api/mongodb/favourites/', {
-        method: 'GET',
-        headers: { authorization: `Bearer ${authState.accessToken.accessToken}` },
-      })
-        .then(res => res.json)
-        .then(data => setFavourites(data.favouriteTvSeries));
+      const successfull = authState.accessToken ? await getFavourites('GET') : null;
+      if (!successfull) {
+        throw new Error('No favourites array found');
+      }
+      return true;
     } catch (err) {
-      fetch('/api/mongodb/favourites/', {
-        method: 'POST',
-        headers: { authorization: `Bearer ${authState.accessToken.accessToken}` },
-      })
-        .then(res => res.json)
-        .then(data => setFavourites(data.favouriteTvSeries))
-        .catch(error => error);
+      const successfull = authState.accessToken ? await getFavourites('POST') : null;
+      console.log(favourites);
+      return successfull;
     }
   }, []);
 
@@ -37,19 +46,21 @@ const ProfilePage = () => {
     if (!authState.isAuthenticated) {
       return <Redirect to={{ pathname: '/login' }}/>;
     }
+    if (!authState.accessToken) {
+      return null;
+    }
     return null;
   }
-
-  console.log(user);
 
   return (
     <section>
       <h1 className='user-profile'></h1>
       <h1>User Profile</h1>
-        <div>
-          <label>Name: </label>
-          <span>{user.name}</span>
-        </div>
+      <div>
+        <label>Name: </label>
+        <span>{user.name}</span>
+        {favourites && favourites.map(series => <p>{series.name}</p>)}
+      </div>
     </section>
   );
 };

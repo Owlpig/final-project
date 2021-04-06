@@ -25,7 +25,7 @@ router.get('/favourites', getAccessToRoute, async (req, res) => {
   }
 });
 
-router.post('/favourites', async (req, res) => {
+router.post('/favourites', getAccessToRoute, async (req, res) => {
   const newFavourites = new UserFavourites({
     uid: req.jwt.claims.uid,
     favouriteTvSeries: req.body.favouriteTvSeries,
