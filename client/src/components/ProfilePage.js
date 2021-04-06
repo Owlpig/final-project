@@ -43,6 +43,24 @@ const ProfilePage = () => {
     }
   }, [user]);
 
+  const handleFavourites = async series => {
+    await fetch('/api/mongodb/favourites', {
+      method: 'PUT',
+      body: JSON.stringify({
+        deleteFavourite: {
+          imdbId: series.imdbId,
+          name: series.name,
+        },
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${authState.accessToken.accessToken}`,
+      },
+    });
+    await getFavourites('GET');
+  };
+
   if (!user) {
     if (!authState.accessToken) {
       return <p>Loading...</p>;
@@ -68,7 +86,11 @@ const ProfilePage = () => {
         <label>Welcome </label>
         <span>{user.name}!</span>
         <h3>Your favourite series:</h3>
-        {favourites && favourites.map(series => <p key={series.imdbId}>{series.name}</p>)}
+        {favourites && favourites.map(series => <p key={series.imdbId}>
+          <Link className='favourite-link' to={`/tvShow-details/${series.imdbId}`}>{series.name}</Link>
+          <button onClick={() => handleFavourites(series)}>Remove</button>
+        </p>)
+        }
       </div>
     </section>
   );

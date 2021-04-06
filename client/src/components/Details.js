@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useHistory } from 'react-router-dom';
 import { useOktaAuth } from '@okta/okta-react';
+import Reviews from './Reviews';
 
 const Details = ({ country }) => {
   const { id } = useParams();
@@ -92,6 +93,7 @@ const Details = ({ country }) => {
         </section>
         <p className="details-plot">{details.Plot}</p>
       </div>
+      <Reviews />
     </>
   );
 };

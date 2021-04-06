@@ -96,6 +96,11 @@ img {
   max-width: 40vw
 }
 
+.favourite-link {
+  color: white;
+  padding: 10px;
+}
+
 @media screen and (max-width: 750px) {
   .details-container {
     flex-direction: column;

@@ -4,15 +4,7 @@ const UserFavourites = require('../models/favouritesModel');
 
 const router = express.Router();
 
-// router.get('/favourites', getAccessToRoute, async (req, res) => {
-//   const allFavourites = await UserFavourites.find();
-
-//   res
-//     .status(200)
-//     .send(allFavourites);
-// });
-
-router.get('/favourites', getAccessToRoute, async (req, res) => {
+router.get('/', getAccessToRoute, async (req, res) => {
   try {
     const userFavourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
     res
@@ -25,7 +17,7 @@ router.get('/favourites', getAccessToRoute, async (req, res) => {
   }
 });
 
-router.post('/favourites', getAccessToRoute, async (req, res) => {
+router.post('/', getAccessToRoute, async (req, res) => {
   const newFavourites = new UserFavourites({
     uid: req.jwt.claims.uid,
     favouriteTvSeries: req.body.favouriteTvSeries,
@@ -36,7 +28,7 @@ router.post('/favourites', getAccessToRoute, async (req, res) => {
     .send(newFavourites);
 });
 
-router.put('/favourites', getAccessToRoute, async (req, res) => {
+router.put('/', getAccessToRoute, async (req, res) => {
   try {
     const favourites = await UserFavourites.findOne({ uid: req.jwt.claims.uid });
     if (req.body.addFavourite) {
@@ -59,18 +51,5 @@ router.put('/favourites', getAccessToRoute, async (req, res) => {
       .send({ error: 'User not found!' });
   }
 });
-
-// router.delete('/favourites/:id', getAccessToRoute, async (req, res) => {
-//   try {
-//     await UserFavourites.deleteOne({ uid: req.params.id });
-//     res
-//       .status(204)
-//       .send();
-//   } catch (error) {
-//     res
-//       .status(404)
-//       .send({ error: 'User not found!' });
-//   }
-// });
 
 module.exports = router;
