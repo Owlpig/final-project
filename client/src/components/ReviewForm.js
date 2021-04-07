@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
-const ReviewForm = ({ id, setRenderReviews, setDisplayForm }) => {
+const ReviewForm = ({
+  id, setRenderReviews, setDisplayForm, mediaTitle,
+}) => {
   const { oktaAuth, authState } = useOktaAuth();
   const [user, setUser] = useState({});
   const [title, setTitle] = useState('');
@@ -30,6 +32,7 @@ const ReviewForm = ({ id, setRenderReviews, setDisplayForm }) => {
       body: JSON.stringify({
         imdbId: id,
         username: user.name,
+        mediaTitle,
         title,
         description,
         rating,

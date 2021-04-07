@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Questrial&display=swap');
+
 html {
   background-color: black;
   color: white;
+  font-family: 'Commissioner', sans-serif;
 }
 
 .main-header {
@@ -10,6 +13,7 @@ html {
 .main-heading {
   color: white;
   text-decoration: none;
+  font-family: 'Questrial', sans-serif;
 }
 
 .links {

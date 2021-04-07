@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import ReviewForm from './ReviewForm';
 import ReviewCard from './ReviewCard';
 
-const Reviews = ({ id }) => {
+const Reviews = ({ id, mediaTitle }) => {
   const { authState } = useOktaAuth();
   const [reviews, setReviews] = useState([]);
   const [renderReviews, setRenderReviews] = useState(false);
@@ -29,7 +29,9 @@ const Reviews = ({ id }) => {
       {authState.isAuthenticated
       && !displayForm && <button onClick={handleAddReview}>Add a review</button>}
       {displayForm
-      && <ReviewForm setDisplayForm={setDisplayForm} setRenderReviews={setRenderReviews} id={id}/>}
+      && <ReviewForm
+      setDisplayForm={setDisplayForm}
+      setRenderReviews={setRenderReviews} mediaTitle={mediaTitle} id={id}/>}
       {reviews.map((review, index) => <ReviewCard
       setRenderReviews={setRenderReviews} key={index} review={review}/>)}
     </section>

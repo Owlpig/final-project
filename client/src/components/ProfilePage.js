@@ -106,7 +106,11 @@ const ProfilePage = () => {
         }
         <h3>Your reviews:</h3>
         <div className='user-reviews'>
-          {reviews.map(review => <Link className='review-link' key={review._id} to={`/tvShow-details/${review.imdbId}`}>{review.title}</Link>)}
+          {reviews.map(review => <p key={review._id}>
+            <Link className='review-link' to={`/tvShow-details/${review.imdbId}`}>{review.title}
+              <span> ({review.mediaTitle})</span>
+            </Link>
+          </p>)}
         </div>
       </div>
     </section>

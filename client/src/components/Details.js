@@ -93,7 +93,7 @@ const Details = ({ country }) => {
         </section>
         <p className="details-plot">{details.Plot}</p>
       </div>
-      <Reviews id={id}/>
+      <Reviews mediaTitle={details.Title} id={id}/>
     </>
   );
 };

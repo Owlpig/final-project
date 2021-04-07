@@ -37,6 +37,7 @@ router.post('/', getAccessToRoute, async (req, res) => {
   const newReview = new Review({
     uid: req.jwt.claims.uid,
     imdbId: req.body.imdbId,
+    mediaTitle: req.body.mediaTitle,
     username: req.body.username,
     title: req.body.title,
     description: req.body.description,
