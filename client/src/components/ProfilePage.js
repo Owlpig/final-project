@@ -7,6 +7,7 @@ const ProfilePage = () => {
   const [user, setUser] = useState();
   const [favourites, setFavourites] = useState();
   const [error, setError] = useState('');
+  const [reviews, setReviews] = useState([]);
 
   const getCurrentUser = () => {
     oktaAuth.getUser()
@@ -27,10 +28,22 @@ const ProfilePage = () => {
     return true;
   };
 
+  const getReviews = () => {
+    fetch(`/api/mongodb/reviews/${user.sub}`, {
+      headers: { authorization: `Bearer ${authState.accessToken.accessToken}` },
+    })
+      .then(res => res.json())
+      .then(data => setReviews(data));
+  };
+
   useEffect(() => {
     getCurrentUser();
   }, []);
+
   useEffect(async () => {
+    if (user) {
+      await getReviews();
+    }
     try {
       const successfull = authState.accessToken ? await getFavourites('GET') : null;
       if (!successfull) {
@@ -91,6 +104,10 @@ const ProfilePage = () => {
           <button onClick={() => handleFavourites(series)}>Remove</button>
         </p>)
         }
+        <h3>Your reviews:</h3>
+        <div className='user-reviews'>
+          {reviews.map(review => <Link className='review-link' key={review._id} to={`/tvShow-details/${review.imdbId}`}>{review.title}</Link>)}
+        </div>
       </div>
     </section>
   );
