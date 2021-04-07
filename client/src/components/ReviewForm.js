@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
-const ReviewForm = ({ id }) => {
-  const { oktaAuth } = useOktaAuth();
+const ReviewForm = ({ id, setRenderReviews, setDisplayForm }) => {
+  const { oktaAuth, authState } = useOktaAuth();
   const [user, setUser] = useState({});
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState('1');
 
   const getCurrentUser = () => {
     oktaAuth.getUser()
@@ -18,13 +18,14 @@ const ReviewForm = ({ id }) => {
     getCurrentUser();
   }, []);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    fetch('api/mongodb/reviews', {
+    await fetch('http://localhost:3000/api/mongodb/reviews', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        authorization: `Bearer ${authState.accessToken.accessToken}`,
       },
       body: JSON.stringify({
         imdbId: id,
@@ -34,6 +35,8 @@ const ReviewForm = ({ id }) => {
         rating,
       }),
     });
+    setRenderReviews(true);
+    setDisplayForm(false);
   };
 
   const handleRatingChange = e => {
@@ -48,22 +51,28 @@ const ReviewForm = ({ id }) => {
     setDescription(e.target.value);
   };
 
+  const handleCancel = () => {
+    setDisplayForm(false);
+  };
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="rating">Rating: </label>
-      <select onChange={handleRatingChange} id="rating" className="review-rating">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <label htmlFor="title">Title</label>
-      <input onChange={handleTitleChange} id="title" className="review-title"></input>
-      <label htmlFor="description">Description</label>
-      <input onChange={handleDescChange} id="description" className="review-description"></input>
-      <button>Submit</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="rating">Rating: </label>
+        <select defaultValue="1" onChange={handleRatingChange} id="rating" className="review-rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <label htmlFor="title">Title: </label>
+        <input onChange={handleTitleChange} id="title" className="review-title"></input>
+        <label htmlFor="description">Description: </label>
+        <input onChange={handleDescChange} id="description" className="review-description"></input>
+        <button>Submit</button>
+      </form>
+      <button onClick={handleCancel}>Cancel</button>
+    </>
   );
 };
 

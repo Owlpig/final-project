@@ -1,1 +1,5 @@
-{ "extends": "salt" }
+{ "extends": "salt",
+  "rules": {
+    "no-underscore-dangle": "off"
+  }
+ }
