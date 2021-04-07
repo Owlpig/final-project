@@ -79,7 +79,8 @@ const Details = ({ country }) => {
         <section className='details-text'>
           <h2 className="details-title">{details.Title}</h2>
           <p>Year: {details.Year}</p>
-          {details.Ratings && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
+          {details.Ratings
+          && details.Ratings.length > 0 && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
           <p>Genre: {details.Genre}</p>
           <p>Number of Seasons: {details.totalSeasons}</p>
           <p className="tvshow-platforms">
