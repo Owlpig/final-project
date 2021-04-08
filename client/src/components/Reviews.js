@@ -25,15 +25,17 @@ const Reviews = ({ id, mediaTitle }) => {
   }, [renderReviews]);
 
   return (
-    <section>
+    <section className='reviews-container'>
       {authState.isAuthenticated
-      && !displayForm && <button onClick={handleAddReview}>Add a review</button>}
+      && !displayForm && <button className='add-review-btn' onClick={handleAddReview}>Add a review</button>}
       {displayForm
       && <ReviewForm
       setDisplayForm={setDisplayForm}
       setRenderReviews={setRenderReviews} mediaTitle={mediaTitle} id={id}/>}
-      {reviews.map((review, index) => <ReviewCard
+      <div className='reviews-list'>
+        {reviews.map((review, index) => <ReviewCard
       setRenderReviews={setRenderReviews} key={index} review={review}/>)}
+      </div>
     </section>
   );
 };

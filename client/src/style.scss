@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Questrial&display=swap');
 
+$main-blue: rgb(0, 238, 255);
+$main-red: rgb(197, 31, 31);
+
 html {
   background-color: #000000;
   background-image: linear-gradient(90deg, #1c1c22 5%, #000000 75%, #1c1c22);
@@ -40,7 +43,7 @@ html {
   right: 0;
 }
 
-.login-link, .register-link, .protected-link {
+.login-link, .logout-link, .register-link, .profile-link {
   color: black;
   background-color: white;
   border: none;
@@ -49,6 +52,15 @@ html {
   margin: 5px;
   padding: 10px;
   cursor: pointer;
+}
+
+.logout-link:hover {
+  color: white;
+  background-color: $main-red;
+}
+
+.login-link:hover, .register-link:hover, .profile-link:hover, .submit-btn:hover, .add-favourite-btn:hover {
+  background-color: $main-blue;
 }
 
 .main {
@@ -108,11 +120,6 @@ html {
   cursor: pointer;
 }
 
-.submit-btn:hover {
-  background-color: rgb(87, 87, 87);
-  color: white;
-}
-
 .results-container, .popular-series-container {
   display: flex;
   flex-direction: row;
@@ -132,6 +139,13 @@ html {
   border-radius: 2px;
   background-color: #000000;
   overflow: scroll;
+
+  &:hover {
+    transition: all 0.8s ease-out;
+    box-shadow: 0px 4px 50px blue;
+    top: -4px;
+    border: 1px solid white;
+  }
 }
 
 .tvshow-poster {
@@ -190,9 +204,147 @@ html {
   max-width: 40vw
 }
 
+.reviews-container {
+  margin-bottom: 50px;
+}
+
+.add-review-btn {
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $main-blue;
+  }
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $main-blue;
+  margin-top: 20px;
+}
+
+.review-form h3 {
+  margin-left: 10px;
+  color: white;
+}
+
+.review-form-rating, .review-form-title, .review-form-description {
+  margin: 0px 10px;
+  color: $main-blue;
+}
+
+.title-input, .description-input, .rating-input {
+  padding-right: 100px;
+  margin: 10px;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+// .reviews-list {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-evenly;
+// }
+
+.add-review-btn {
+  margin: 20px;
+}
+
+.review-card {
+  margin: 20px;
+  max-width: 600px;
+  border: 2px solid $main-blue;
+}
+
+.review-title, .review-btns, .review-description, .review-header{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.review-title {
+  color: $main-blue;
+}
+
+.review-btns {
+  margin-bottom: 10px;
+}
+
+.review-edit, .review-delete, .review-form-submit, .review-form-cancel {
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.review-edit:hover, .review-form-submit:hover {
+  background-color: $main-blue;
+}
+
+.review-delete:hover, .review-form-cancel:hover {
+  background-color: $main-red;
+  color: white;
+}
+
+.user-profile {
+  width: auto;
+  border: 2px solid $main-blue;
+  text-align: center;
+}
+
+.user-profile h1, .favourites-container h3, .user-reviews-container h3 {
+  color: $main-blue;
+}
+
+.user-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.favourites-container, .user-reviews-container {
+  margin: 20px;
+}
+
 .favourite-link, .review-link {
   color: white;
-  padding: 10px;
+  padding: 10px 10px 10px 0px;
+}
+
+.remove-favourite-btn, .add-favourite-btn {
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.add-favourite-btn:hover {
+  background-color: $main-blue
+}
+
+.remove-favourite-btn:hover {
+  color: white;
+  background-color: $main-red;
 }
 
 .page-footer {
@@ -228,7 +380,7 @@ html {
 }
 
 @media screen and (max-width: 750px) {
-  .details-container {
+  .details-container, .user-content, .reviews-list {
     flex-direction: column;
   }
   .details-image {

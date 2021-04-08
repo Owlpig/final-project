@@ -59,22 +59,25 @@ const ReviewForm = ({
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="rating">Rating: </label>
-        <select defaultValue="1" onChange={handleRatingChange} id="rating" className="review-rating">
+      <form className='review-form' onSubmit={handleSubmit}>
+        <h3>Add review:</h3>
+        <label className='review-form-rating' htmlFor="rating">Rating: </label>
+        <select className='rating-input' defaultValue="1" onChange={handleRatingChange} id="rating">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <label htmlFor="title">Title: </label>
-        <input onChange={handleTitleChange} id="title" className="review-title"></input>
-        <label htmlFor="description">Description: </label>
-        <input onChange={handleDescChange} id="description" className="review-description"></input>
-        <button>Submit</button>
+        <label className='review-form-title' htmlFor="title">Title: </label>
+        <input className='title-input' onChange={handleTitleChange} id="title"/>
+        <label className='review-form-description' htmlFor="description">Description: </label>
+        <textarea className='description-input' onChange={handleDescChange} id="description"/>
+        <div className='form-buttons'>
+          <button className='review-form-submit' type='submit'>Submit</button>
+          <button className='review-form-cancel' type='button' onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
-      <button onClick={handleCancel}>Cancel</button>
     </>
   );
 };

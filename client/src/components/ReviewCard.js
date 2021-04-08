@@ -17,7 +17,9 @@ const ReviewCard = ({ review, setRenderReviews }) => {
   };
 
   useEffect(() => {
-    getCurrentUser();
+    if (authState.accessToken) {
+      getCurrentUser();
+    }
   }, []);
 
   const handleDelete = async () => {
@@ -77,36 +79,39 @@ const ReviewCard = ({ review, setRenderReviews }) => {
 
   if (displayEdit) {
     return <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="rating">Rating: </label>
-        <select defaultValue={rating} onChange={handleRatingChange} id="rating" className="review-rating">
+      <form className='review-form' onSubmit={handleSubmit}>
+        <h3>Add review:</h3>
+        <label className='review-form-rating' htmlFor="rating">Rating: </label>
+        <select className='rating-input' defaultValue={rating} onChange={handleRatingChange} id="rating">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <label htmlFor="title">Title: </label>
-        <input value={title} onChange={handleTitleChange} id="title" className="review-title"></input>
-        <label htmlFor="description">Description: </label>
-        <input value={description} onChange={handleDescChange} id="description" className="review-description"></input>
-        <button>Submit</button>
+        <label className='review-form-title' htmlFor="title">Title: </label>
+        <input className='title-input' value={title} onChange={handleTitleChange} id="title"/>
+        <label className='review-form-description' htmlFor="description">Description: </label>
+        <textarea className='description-input' value={description} onChange={handleDescChange} id="description"/>
+        <div className='form-buttons'>
+          <button className='review-form-submit' type='submit'>Submit</button>
+          <button className='review-form-cancel' type='button' onClick={handleCancel}>Cancel</button>
+        </div>
       </form>
-      <button onClick={handleCancel}>Cancel</button>
     </>;
   }
 
   return (
-    <div>
-      <header>
-        <p>{review.username}</p>
-        <span>{review.rating}</span>
+    <div className='review-card'>
+      <header className='review-header'>
+        <p>User: {review.username}</p>
+        <span>Rating: {review.rating}/5</span>
       </header>
-      <h3>{review.title}</h3>
-      <p>{review.description}</p>
-      {(review.uid === user.sub) && <div>
-        <button onClick={handleEdit}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
+      <h3 className='review-title'>{review.title}</h3>
+      <p className='review-description'>{review.description}</p>
+      {(review.uid === user.sub) && <div className='review-btns'>
+        <button className='review-edit' onClick={handleEdit}>Edit</button>
+        <button className='review-delete' onClick={handleDelete}>Delete</button>
       </div>}
     </div>
   );

@@ -34,13 +34,13 @@ const Home = ({ setCountry }) => {
   }
 
   const button = authState.isAuthenticated
-    ? <button className="login-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button>
+    ? <button className="logout-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button>
     : <button className="login-link" onClick={() => { history.push('/login'); }}>Login</button>;
 
   return (
     <>
       <nav className="links">
-        {authState.isAuthenticated && <Link to='/profile'><button className="protected-link">Profile</button></Link>}
+        {authState.isAuthenticated && <Link to='/profile'><button className="profile-link">Profile</button></Link>}
         <Link to="/login">{button}</Link>
         {!authState.isAuthenticated && <Link to="/register"><button className="register-link">Register</button></Link>}
       </nav>

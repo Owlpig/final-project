@@ -60,17 +60,17 @@ const Details = ({ country }) => {
   };
 
   const buttonLogin = authState.isAuthenticated
-    ? <button className="login-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button>
+    ? <button className="logout-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button>
     : <button className="login-link" onClick={() => { history.push('/login'); }}>Login</button>;
 
   const buttonFavourite = addedFavourite
-    ? <button onClick={() => handleFavourites('deleteFavourite')}>Remove favourite</button>
-    : <button onClick={() => handleFavourites('addFavourite')}>Add to favourites</button>;
+    ? <button className="remove-favourite-btn" onClick={() => handleFavourites('deleteFavourite')}>Remove favourite</button>
+    : <button className="add-favourite-btn" onClick={() => handleFavourites('addFavourite')}>Add to favourites</button>;
 
   return (
     <>
       <nav className="links">
-        {authState.isAuthenticated && <Link to='/profile'><button className="protected-link">Profile</button></Link>}
+        {authState.isAuthenticated && <Link to='/profile'><button className="profile-link">Profile</button></Link>}
         <Link to="/login">{buttonLogin}</Link>
         {!authState.isAuthenticated && <Link to="/register"><button className="register-link">Register</button></Link>}
       </nav>

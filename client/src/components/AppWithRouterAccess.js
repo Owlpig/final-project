@@ -51,7 +51,7 @@ const AppWithRouterAccess = () => {
           </Route>
         </Switch>
       </main>
-      <footer class="page-footer">
+      <footer className="page-footer">
         <p>© 2021 hackCapone. All rights reserved.</p>
         <a href="https://github.com/Owlpig/final-project-StreamCompass">
           <img className='github-logo' alt="GitHub logo" src="https://media.discordapp.net/attachments/798450868423884804/829681474671345694/GitHub-Mark-Light-32px.png"/>

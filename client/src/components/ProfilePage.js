@@ -89,31 +89,35 @@ const ProfilePage = () => {
   }
 
   return (
-    <section>
+    <>
       <nav className='links'>
-        <Link to='/login'><button className="login-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button></Link>
+        <Link to='/login'><button className="logout-link" onClick={() => { oktaAuth.signOut(); }}>Logout</button></Link>
       </nav>
-      <h1 className='user-profile'></h1>
-      <h1>User Profile</h1>
-      <div>
-        <label>Welcome </label>
-        <span>{user.name}!</span>
-        <h3>Your favourite series:</h3>
-        {favourites && favourites.map(series => <p key={series.imdbId}>
-          <Link className='favourite-link' to={`/tvShow-details/${series.imdbId}`}>{series.name}</Link>
-          <button onClick={() => handleFavourites(series)}>Remove</button>
-        </p>)
-        }
-        <h3>Your reviews:</h3>
-        <div className='user-reviews'>
-          {reviews.map(review => <p key={review._id}>
-            <Link className='review-link' to={`/tvShow-details/${review.imdbId}`}>{review.title}
-              <span> ({review.mediaTitle})</span>
-            </Link>
-          </p>)}
+      <section className='user-profile'>
+        <h1>User Profile</h1>
+          <p>Welcome {user.name}!</p>
+        <div className='user-content'>
+          <section className='favourites-container'>
+            <h3>Your favourite series:</h3>
+            {favourites && favourites.length > 0 && favourites.map(series => <p key={series.imdbId}>
+              <Link className='favourite-link' to={`/tvShow-details/${series.imdbId}`}>{series.name}</Link>
+              <button className='remove-favourite-btn' onClick={() => handleFavourites(series)}>Remove</button>
+            </p>)
+            }
+          </section>
+          <section className='user-reviews-container'>
+            <h3>Your reviews:</h3>
+              <div className='user-reviews'>
+                {reviews.map(review => <p key={review._id}>
+                  <Link className='review-link' to={`/tvShow-details/${review.imdbId}`}>{review.title}
+                    <span> ({review.mediaTitle})</span>
+                  </Link>
+                </p>)}
+              </div>
+          </section>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 export default ProfilePage;
