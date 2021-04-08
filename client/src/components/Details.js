@@ -75,23 +75,28 @@ const Details = ({ country }) => {
         {!authState.isAuthenticated && <Link to="/register"><button className="register-link">Register</button></Link>}
       </nav>
       <div className='details-container'>
-        <img className="details-image"src={details.Poster}/>
-        <section className='details-text'>
-          <h2 className="details-title">{details.Title}</h2>
-          <p>Year: {details.Year}</p>
-          {details.Ratings
-          && details.Ratings.length > 0 && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
-          <p>Genre: {details.Genre}</p>
-          <p>Number of Seasons: {details.totalSeasons}</p>
-          <p className="tvshow-platforms">
-            Available on: {platforms && platforms.map((platform, index) => {
-            if (index < platforms.length - 1) {
-              return `${platform.display_name}, `;
-            } return `${platform.display_name}.`;
-          })}
-          </p>
-          {authState.isAuthenticated && buttonFavourite}
-        </section>
+        <div className='details-img-and-text'>
+          <img className="details-image"src={details.Poster}/>
+          <section className='details-text'>
+            <h2 className="details-title">{details.Title}</h2>
+            <p>Year: {details.Year}</p>
+            {details.Ratings
+            && details.Ratings.length > 0 && <p>IMDB Rating: {details.Ratings[0].Value}</p>}
+            <p>Genre: {details.Genre}</p>
+            <p>Number of Seasons: {details.totalSeasons}</p>
+            <p className="tvshow-platforms">
+              Available on: {platforms
+              ? platforms.map((platform, index) => {
+                if (index < platforms.length - 1) {
+                  return `${platform.display_name}, `;
+                } return `${platform.display_name}.`;
+              })
+              : 'Cannot find platforms :('
+            }
+            </p>
+            {authState.isAuthenticated && buttonFavourite}
+          </section>
+        </div>
         <p className="details-plot">{details.Plot}</p>
       </div>
       <Reviews mediaTitle={details.Title} id={id}/>

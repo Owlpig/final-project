@@ -51,7 +51,7 @@ const SearchField = ({ fetchResults, setDetailsCountry }) => {
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
-      <input required className="query-input" onChange={handleQueryChange} value={searchQuery}/>
+      <input placeholder='Search' required className="query-input" onChange={handleQueryChange} value={searchQuery}/>
       <select className="country-dropdown" onChange={handleCountryChange} defaultValue={country}>
         {countryArray.map(obj => <option
         key={obj.code}

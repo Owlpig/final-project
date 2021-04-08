@@ -84,7 +84,7 @@ const RegistrationForm = () => {
       <input onChange={handleEmailChange} value={email} id="email" type="email" className="email-input"/><br/>
       <label htmlFor="password">Password</label>
       <input onChange={handlePasswordChange} value={password }id="password" type="password" className="password-input"/><br/>
-      <button>Register</button>
+      <button className='register-btn'>Register</button>
     </form>
   );
 };

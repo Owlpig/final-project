@@ -42,7 +42,7 @@ const LoginForm = () => {
     <input value={username} onChange={handleUsernameChange} id="username" className="username-input"/><br/>
     <label htmlFor="password">Password: </label>
     <input value={password} onChange={handlePasswordChange} id="password" type="password" className="password-input"/><br/>
-    <button id="submit">Login</button>
+    <button className='login-btn' id="submit">Login</button>
   </form>
   );
 };
