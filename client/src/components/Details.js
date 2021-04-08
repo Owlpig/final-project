@@ -6,7 +6,7 @@ import Reviews from './Reviews';
 const Details = ({ country }) => {
   const { id } = useParams();
   const [details, setDetails] = useState({});
-  const [platforms, setPlatforms] = useState({});
+  const [platforms, setPlatforms] = useState();
   const [addedFavourite, setAddedFavourite] = useState();
   const { authState, oktaAuth } = useOktaAuth();
   const history = useHistory();
@@ -16,9 +16,9 @@ const Details = ({ country }) => {
       .then(res => res.json())
       .then(data => setDetails(data));
 
-    fetch(`/api/utelly/${id}`, { method: 'POST', body: JSON.stringify({ country }) })
+    fetch(`/api/utelly/${id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ country }) })
       .then(res => res.json())
-      .then(data => setPlatforms(data.collection.locations));
+      .then(data => { setPlatforms(data.collection.locations); });
   }, []);
   useEffect(() => {
     const success = authState.accessToken
@@ -84,7 +84,7 @@ const Details = ({ country }) => {
           <p>Genre: {details.Genre}</p>
           <p>Number of Seasons: {details.totalSeasons}</p>
           <p className="tvshow-platforms">
-            Available on: {platforms[0] && platforms.map((platform, index) => {
+            Available on: {platforms && platforms.map((platform, index) => {
             if (index < platforms.length - 1) {
               return `${platform.display_name}, `;
             } return `${platform.display_name}.`;

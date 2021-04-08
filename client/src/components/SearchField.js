@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SearchField = ({ fetchResults }) => {
+const SearchField = ({ fetchResults, setDetailsCountry }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [country, setCountry] = useState('');
+  const [country, setCountry] = useState('se');
 
   const countryArray = [
     { code: 'uk', name: 'United Kingdom' },
@@ -30,30 +30,35 @@ const SearchField = ({ fetchResults }) => {
     { code: 'se', name: 'Sweden' },
     { code: 'sg', name: 'Singapore' }];
 
+  useEffect(() => {
+    setDetailsCountry(country);
+  }, []);
+
   const handleSubmit = e => {
     e.preventDefault();
     fetchResults(searchQuery, country);
     setSearchQuery('');
   };
 
-  const handleChange = e => {
-    if (e.target.name === 'country') {
-      setCountry(e.target.value);
-    } else {
-      setSearchQuery(e.target.value);
-    }
+  const handleQueryChange = e => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleCountryChange = e => {
+    setCountry(e.target.value);
+    setDetailsCountry(e.target.value);
   };
 
   return (
     <form className="search-form" onSubmit={handleSubmit}>
-      <input required onChange={handleChange} value={searchQuery} name="searchQuery"/>
-      <select name="country" onChange={handleChange} defaultValue={country}>
+      <input required className="query-input" onChange={handleQueryChange} value={searchQuery}/>
+      <select className="country-dropdown" onChange={handleCountryChange} defaultValue={country}>
         {countryArray.map(obj => <option
         key={obj.code}
         value={obj.code}>{obj.name}
         </option>)}
       </select>
-      <button>Submit</button>
+      <button className="submit-btn">Submit</button>
     </form>
   );
 };

@@ -35,13 +35,6 @@ const ResultCard = ({ tvShow, setLoading }) => {
         </figure>
         <div className='tvshow-text'>
           <p className="tvshow-name">{ tvShow.name }</p>
-          <p className="tvshow-platforms">
-            {tvShow.locations && tvShow.locations.map((platform, index) => {
-              if (index < tvShow.locations.length - 1) {
-                return `${platform.display_name}, `;
-              } return `${platform.display_name}.`;
-            })}
-          </p>
           <p>Genre: {details.Genre}</p>
           {details.Ratings
           && details.Ratings.length > 0 && <p className="tvshow-rating">IMDB Rating: {details.Ratings[0].Value}</p>}

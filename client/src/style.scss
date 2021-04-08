@@ -1,13 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Commissioner&family=Questrial&display=swap');
 
 html {
-  background-color: black;
+  background-color: #000000;
+  background-image: linear-gradient(90deg, #1c1c22 5%, #000000 75%, #1c1c22);
   color: white;
   font-family: 'Commissioner', sans-serif;
 }
 
 .main-header {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.logo {
+  margin-top: 35px;
+  margin-right: 10px;
+  max-height: 45px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.main-header h1 {
+  font-size: 40px;
+  margin-top: 30px;
 }
 
 .main-heading {
@@ -54,6 +71,35 @@ html {
   text-align: center;
 }
 
+.query-input {
+  font-size: max(min(2.5vw, 30px), 1em);
+  margin: 2px;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 5px;
+}
+
+.country-dropdown {
+  font-size: max(min(2.5vw, 30px), 1em);
+  margin: 2px;
+  border-radius: 5px;
+}
+
+.submit-btn {
+  font-size: max(min(2.5vw, 30px), 1em);
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 2px, 5px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: rgb(87, 87, 87);
+  color: white;
+}
+
 .results-container, .popular-series-container {
   display: flex;
   flex-direction: row;
@@ -61,19 +107,21 @@ html {
   flex-wrap: wrap;
 }
 
+.popular-series-container a, .results-container a {
+  text-decoration: none;
+}
+
 .tvshow-card {
-  width: 35vw;
-  max-width: 300px;
+  width: 300px;
   height: 500px;
   box-shadow: 2px 2px 10px white;
   margin: 20px;
   border-radius: 2px;
+  background-color: #000000;
 }
 
 .tvshow-poster {
   margin: 0px;
-  max-width: 300px;
-  max-height: 375px;
 }
 
 .tvshow-poster img {
@@ -94,7 +142,7 @@ html {
 }
 
 .tvshow-name {
-  text-decoration: none;
+  font-weight: bolder;
 }
 
 .details-image {
@@ -133,5 +181,8 @@ html {
   .details-plot {
     margin: 10px;
     max-width: 80vw
+  }
+  .main-header {
+    margin-top: 50px;
   }
 }

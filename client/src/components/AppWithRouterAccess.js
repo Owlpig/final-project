@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Route, useHistory, Switch, Link,
 } from 'react-router-dom';
@@ -12,6 +12,7 @@ import RegistrationForm from './RegistrationForm';
 import Details from './Details';
 
 const AppWithRouterAccess = () => {
+  const [country, setCountry] = useState();
   const history = useHistory();
   const onAuthRequired = () => {
     history.push('/login');
@@ -31,6 +32,7 @@ const AppWithRouterAccess = () => {
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
       <header className="main-header">
+        <img className='logo' alt='logo' src='https://media.discordapp.net/attachments/798450868423884804/829314234587545660/StreamCompass_logo.png.png'/>
         <h1><Link className="main-heading" to="/">StreamCompass</Link></h1>
       </header>
       <main className="main">
@@ -39,14 +41,19 @@ const AppWithRouterAccess = () => {
             <RegistrationForm/>
           </Route>
           <Route path="/tvShow-details/:id">
-            <Details />
+            <Details country={country}/>
           </Route>
           <Route path='/profile' component={ProfilePage} />
           <Route path='/login/callback' component={LoginCallback} />
           <Route path='/login' render={() => <Login />} />
-          <Route path='/' exact={true} component={Home} />
+          <Route path='/' exact={true}>
+            <Home setCountry={setCountry}/>
+          </Route>
         </Switch>
       </main>
+      <footer>
+        
+      </footer>
     </Security>
   );
 };

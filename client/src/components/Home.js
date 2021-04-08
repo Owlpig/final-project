@@ -6,7 +6,7 @@ import SearchField from './SearchField';
 import Results from './Results';
 import ResultCard from './ResultCard';
 
-const Home = () => {
+const Home = ({ setCountry }) => {
   const { authState, oktaAuth } = useOktaAuth();
   const history = useHistory();
   const [searchResult, setSearchResult] = useState();
@@ -44,7 +44,7 @@ const Home = () => {
         <Link to="/login">{button}</Link>
         {!authState.isAuthenticated && <Link to="/register"><button className="register-link">Register</button></Link>}
       </nav>
-      <SearchField fetchResults={fetchResults}/>
+      <SearchField setDetailsCountry={setCountry} fetchResults={fetchResults}/>
       {searchResult
         ? <Results setLoading={setLoading} searchResult={searchResult}/>
         : <><h2>Popular TV-series:</h2>
