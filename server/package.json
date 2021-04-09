@@ -8,6 +8,14 @@
     "dev": "nodemon --exec 'npm run lint && npm start'",
     "lint": "eslint --fix ."
   },
+  "buildpacks": [
+    {
+      "url": "https://github.com/Owlpig/final-project-StreamCompass"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
   "dependencies": {
     "@okta/jwt-verifier": "^2.1.0",
     "@okta/okta-sdk-nodejs": "^4.5.0",
