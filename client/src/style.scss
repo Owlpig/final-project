@@ -150,11 +150,12 @@ html {
 
 .tvshow-poster {
   margin: 0px;
+  height: 375px;
+  overflow: hidden;
 }
 
 .tvshow-poster img {
-  height: 375px;
-  width: 300px;
+  object-fit: cover;
 }
 
 .tvshow-text {
